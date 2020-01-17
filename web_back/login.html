@@ -23,11 +23,55 @@
             <form class="login_form">
                 <i class="iconfont icon-user"></i>
                 <i class="iconfont icon-key"></i>
-                <input type="text" class="input_txt" placeholder="邮箱/手机号">
-                <input type="password" class="input_pass" placeholder="密码">
-                <input type="submit" class="input_sub" value="登 录">
+                <input type="text" id="username" class="input_txt" placeholder="邮箱/手机号">
+                <input type="password" id="password" class="input_pass" placeholder="密码">
+                <input type="submit" id="btnLogin" class="input_sub" value="登 录">
             </form>
         </div>
-    </div> 
+    </div>
+
+
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script>
+        //1.用户登录
+        $("#btnLogin").click(function () {
+            var name = $("#username").val().trim()
+            var password = $("#password").val().trim()
+            if (name.length === 0 || password.length === 0) {
+                alert("不能为空")
+                return
+            }
+
+
+            $.post('http://192.168.172.85:8000/admin/login', {
+                'user_name': name,
+                'password': password
+            }).then(function (res) {
+                console.log(res);
+                if (res.code === 200) {
+                    alert('登录成功')
+                } else {
+                    alert(res.msg)
+                }
+            })
+
+            // $.post('http://192.168.172.85:8000/admin/login', {
+            //     'user_name': name,
+            //     'password': password
+            // }).then(function (res) {
+            //     console.log(res)
+            //     //2. 反馈做后续的动作
+            //     if (res.code === 200) {
+            //         alert('登陆成功')
+            //     } else {
+            //         // 失败，直接打出错别信息
+            //         alert(res.msg)
+            //     }
+            // })
+        })
+
+
+    </script>
 </body>
+
 </html>
