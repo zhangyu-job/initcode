@@ -33,6 +33,26 @@
 
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script>
+        //定义一个对象
+        var user = {
+            login: function (name, password) {
+                $.post('http://192.168.172.85:8000/admin/login', {
+                    'user_name': name,
+                    'password': password
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.code === 200) {
+                        alert('登录成功')
+                    } else {
+                        alert(res.msg)
+                    }
+                })
+            }
+        }
+
+
+
+
         //1.用户登录
         $("#btnLogin").click(function () {
             var name = $("#username").val().trim()
@@ -43,31 +63,22 @@
             }
 
 
-            $.post('http://192.168.172.85:8000/admin/login', {
-                'user_name': name,
-                'password': password
-            }).then(function (res) {
-                console.log(res);
-                if (res.code === 200) {
-                    alert('登录成功')
-                } else {
-                    alert(res.msg)
-                }
-            })
-
             // $.post('http://192.168.172.85:8000/admin/login', {
             //     'user_name': name,
             //     'password': password
             // }).then(function (res) {
-            //     console.log(res)
-            //     //2. 反馈做后续的动作
+            //     console.log(res);
             //     if (res.code === 200) {
-            //         alert('登陆成功')
+            //         alert('登录成功')
             //     } else {
-            //         // 失败，直接打出错别信息
             //         alert(res.msg)
             //     }
             // })
+
+
+            //用户登录
+            user.login(name, password)
+
         })
 
 
